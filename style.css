@@ -513,7 +513,7 @@ footer p {
   overflow: hidden;
 }
 .producto-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px); 
   box-shadow: 0 12px 40px rgba(0,0,0,0.07);
   border-color: var(--cream);
 }
