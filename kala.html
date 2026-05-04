@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kala – Almacen de Fragancias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/LOGOADF.png">
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+      <div class="logo">
+        <a href="index.html">
+          <h1>ALMACEN DE FRAGANCIAS</h1>
+          <p>Perfumes, aromas, esencias y más</p>
+        </a>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">INICIO</a></li>
+        <li><a href="catalogo.html">CATÁLOGO</a></li>
+        <li class="nav-marcas">
+          <a href="#" class="marcas-toggle">MARCAS</a>
+          <ul class="marcas-dropdown">
+            <li><a href="kala.html">Kala</a></li>
+            <li><a href="paque.html">Paque Coco</a></li>
+            <li><a href="nanda.html">Nanda</a></li>
+            <li><a href="candles.html">New Candles</a></li>
+            <li><a href="velas.html">Velas de Soja</a></li>
+            <li><a href="touch.html">Touch Aromas</a></li>
+            <li><a href="brujas.html">Compañía de Brujas</a></li>
+            <li><a href="mariafernandez.html">María Fernández BA</a></li>
+            <li><a href="catalogo.html">Ver todas</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#contacto">CONTACTO</a></li>
+        <li><a href="sobrenosotros.html">SOBRE NOSOTROS</a></li>
+      </ul>
+      <a href="#" class="bag" id="openCart">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-badge" id="cart-count-badge">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="brand-page">
+    <div class="brand-hero">
+      <div class="brand-icon">✦</div>
+      <h1>Kala</h1>
+      <p class="subtitle">Fragancias artesanales</p>
+      <div class="brand-divider"></div>
+      <p>Kala nace de la búsqueda de la esencia pura. Sus fragancias son composiciones artesanales que combinan ingredientes naturales con técnicas de perfumería clásica, creando aromas que acompañan cada momento especial.</p>
+      <p>Con una filosofía de lujo silencioso, Kala propone perfumes que no gritan sino que susurran, invitando a quien los lleva a encontrarse con su versión más auténtica.</p>
+      <div class="brand-actions">
+        <a href="catalogo.html?marca=Kala" class="btn-ver-catalogo">Ver productos de Kala</a>
+        <a href="catalogo.html" class="btn-volver">Ver catálogo completo</a>
+      </div>
+    </div>
+
+    <div class="brand-productos">
+      <h3>Productos de Kala</h3>
+      <div id="catalogo" class="productos-grid"></div>
+    </div>
+  </div>
+
+  <!-- CARRITO LATERAL -->
+  <div id="cartOverlay" class="cart-overlay">
+    <div class="cart-panel">
+      <button id="closeCart" class="close-btn">&times;</button>
+      <h2 class="cart-title">MI SELECCIÓN (<span id="cart-count">0</span>)</h2>
+      <div id="cart-content" class="cart-content">
+        <p class="empty-cart">Tu selección está vacía</p>
+      </div>
+      <div class="cart-footer" id="cart-footer-actions" style="display:none">
+        <button class="btn-whatsapp" id="btnWhatsapp">
+          <i class="fa-brands fa-whatsapp"></i> Hacer pedido por WhatsApp
+        </button>
+        <button class="btn-clear-cart" id="btnClearCart">Vaciar selección</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Dropdown nav
+      const toggle = document.querySelector('.marcas-toggle');
+      const li = document.querySelector('.nav-marcas');
+      if (toggle && li) {
+        toggle.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); li.classList.toggle('open'); });
+        document.addEventListener('click', function (e) { if (!li.contains(e.target)) li.classList.remove('open'); });
+      }
+      // Mostrar solo productos de esta marca
+      renderCatalogo('Kala');
+    });
+  </script>
+</body>
+</html>

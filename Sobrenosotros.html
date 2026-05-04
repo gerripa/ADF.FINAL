@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sobre Nosotros – Almacen de Fragancias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="img/LogoADF.png">
+  <style>
+    .sobre-page { padding-top: 80px; background-color: var(--cream); }
+
+    /* CARRUSEL */
+    .sobre-carrusel {
+      position: relative;
+      width: 70%;
+      margin: 40px auto 0;
+      height: 50vh;
+      overflow: hidden;
+      background-color: var(--cream-2);
+    }
+    .carrusel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.6s ease;
+    }
+    .carrusel-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-color: var(--cream-2);
+    }
+    .carrusel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+    .carrusel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.7);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 10;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+    .carrusel-btn:hover { background: rgba(255,255,255,0.95); }
+    .carrusel-prev { left: 20px; }
+    .carrusel-next { right: 20px; }
+    .carrusel-dots {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+    .carrusel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.2s ease;
+      border: none;
+      padding: 0;
+    }
+    .carrusel-dot.active { background: var(--white); }
+
+    /* TÍTULO */
+    .sobre-titulo {
+      text-align: center;
+      padding: 60px 50px 40px;
+    }
+    .sobre-titulo .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .sobre-titulo h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 300;
+      color: var(--dark);
+      letter-spacing: 0.2em;
+      margin-bottom: 18px;
+    }
+    .sobre-divider {
+      width: 40px;
+      height: 1px;
+      background-color: var(--accent-2);
+      margin: 0 auto;
+    }
+
+    /* TEXTO */
+    .sobre-texto-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 50px 50px 80px;
+      text-align: center;
+    }
+    .sobre-texto-wrap p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      line-height: 1.95;
+      color: var(--mid);
+      font-weight: 300;
+      margin-bottom: 28px;
+      letter-spacing: 0.02em;
+    }
+
+    /* DATOS */
+    .sobre-datos {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 50px 50px 80px;
+      background-color: var(--white);
+      flex-wrap: wrap;
+    }
+    .dato-item { text-align: center; }
+    .dato-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+    }
+    .dato-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      display: block;
+      margin-top: 8px;
+    }
+
+    /* CTA */
+    .sobre-cta {
+      text-align: center;
+      padding: 60px 50px;
+      background-color: var(--cream-2);
+    }
+    .sobre-cta p {
+      font-size: 14px;
+      color: var(--mid);
+      margin-bottom: 28px;
+      letter-spacing: 0.05em;
+    }
+    .sobre-cta-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .sobre-carrusel { width: 100%; height: 40vh; margin-top: 20px; }
+      .sobre-titulo { padding: 40px 24px 30px; }
+      .sobre-texto-wrap { padding: 30px 24px 50px; }
+      .sobre-texto-wrap p { font-size: 16px; }
+      .sobre-datos { gap: 30px; padding: 40px 24px 60px; }
+      .sobre-cta { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="navbar">
+      <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+      <div class="logo" style="display:flex; align-items:center; gap:10px;">
+        <a href="index.html">
+          <h1>ALMACEN DE FRAGANCIAS</h1>
+          <p>Perfumes, aromas, esencias y más</p>
+        </a>
+        <img src="img/LogoADF.png" alt="Logo" class="logo-redondo">
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">INICIO</a></li>
+        <li><a href="catalogo.html">CATÁLOGO</a></li>
+        <li class="nav-marcas">
+          <a href="#" class="marcas-toggle">MARCAS</a>
+          <ul class="marcas-dropdown">
+            <li><a href="kala.html">Kala</a></li>
+            <li><a href="paque.html">Paque Coco</a></li>
+            <li><a href="nanda.html">Nanda</a></li>
+            <li><a href="candles.html">New Candles</a></li>
+            <li><a href="velas.html">Velas de Soja</a></li>
+            <li><a href="touch.html">Touch Aromas</a></li>
+            <li><a href="brujas.html">Compañía de Brujas</a></li>
+            <li><a href="mariafernandez.html">María Fernández BA</a></li>
+          </ul>
+        </li>
+        <li><a href="sobrenosotros.html" class="active">SOBRE NOSOTROS</a></li>
+        <li><a href="index.html#contacto">CONTACTO</a></li>
+      </ul>
+      <a href="#" class="bag" id="openCart">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="cart-badge" id="cart-count-badge">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="sobre-page">
+
+    <!-- CARRUSEL -->
+    <div class="sobre-carrusel">
+      <div class="carrusel-track" id="carruselTrack">
+        <div class="carrusel-slide">
+          <img src="img/carrusel1.jpg" alt="Almacen de Fragancias">
+        </div>
+        <div class="carrusel-slide">
+          <img src="img/carrusel2.jpeg" alt="Nuestro local">
+        </div>
+        <div class="carrusel-slide">
+          <img src="img/carrusel3.jpg" alt="Nuestros productos">
+        </div>
+      </div>
+      <button class="carrusel-btn carrusel-prev" id="carruselPrev">‹</button>
+      <button class="carrusel-btn carrusel-next" id="carruselNext">›</button>
+      <div class="carrusel-dots">
+        <button class="carrusel-dot active"></button>
+        <button class="carrusel-dot"></button>
+        <button class="carrusel-dot"></button>
+      </div>
+    </div>
+
+    <!-- TÍTULO -->
+    <div class="sobre-titulo">
+      <p class="eyebrow">Quiénes somos</p>
+      <h1>ALMACEN DE FRAGANCIAS</h1>
+      <div class="sobre-divider"></div>
+    </div>
+
+    <!-- TEXTO -->
+    <div class="sobre-texto-wrap">
+      <p>Almacen de Fragancias nació de la pasión por los aromas y la convicción de que cada fragancia tiene el poder de transformar un espacio, evocar un recuerdo y expresar una personalidad única.</p>
+      <p>Somos un local multimarca especializado en perfumes, velas, difusores y productos de aromaterapia. Seleccionamos cuidadosamente cada marca que forma parte de nuestra propuesta, priorizando la calidad artesanal, la identidad propia y la experiencia sensorial que ofrecen.</p>
+      <p>Nuestro objetivo es simple: que cada cliente encuentre su fragancia perfecta. Por eso contamos con una atención personalizada, escuchamos lo que buscás y te acompañamos en ese proceso de descubrimiento.</p>
+    </div>
+
+    <!-- DATOS -->
+    <div class="sobre-datos">
+      <div class="dato-item">
+        <span class="dato-num">✦</span>
+        <span class="dato-label">Marcas seleccionadas</span>
+      </div>
+      <div class="dato-item">
+        <span class="dato-num">100%</span>
+        <span class="dato-label">Atención personalizada</span>
+      </div>
+      <div class="dato-item">
+        <span class="dato-num">♡</span>
+        <span class="dato-label">Pasión por los aromas</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="sobre-cta">
+      <p>¿Querés conocer nuestros productos o hacernos una consulta?</p>
+      <div class="sobre-cta-btns">
+        <a href="catalogo.html" class="btn-hero">Ver catálogo</a>
+        <a href="index.html#contacto" class="btn-volver">Contactanos</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2025 Almacen de Fragancias · Creado por Guadalupe Erripa</p>
+  </footer>
+
+  <!-- CARRITO LATERAL -->
+  <div id="cartOverlay" class="cart-overlay">
+    <div class="cart-panel">
+      <button id="closeCart" class="close-btn">&times;</button>
+      <h2 class="cart-title">MI SELECCIÓN (<span id="cart-count">0</span>)</h2>
+      <div id="cart-content" class="cart-content">
+        <p class="empty-cart">Tu selección está vacía</p>
+        <a href="catalogo.html" class="btn-ver-catalogo-empty">Ver catálogo</a>
+      </div>
+      <div class="cart-footer" id="cart-footer-actions" style="display:none">
+        <button class="btn-whatsapp" id="btnWhatsapp">
+          <i class="fa-brands fa-whatsapp"></i> Hacer pedido por WhatsApp
+        </button>
+        <button class="btn-clear-cart" id="btnClearCart">Vaciar selección</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggle = document.querySelector('.marcas-toggle');
+      const li = document.querySelector('.nav-marcas');
+      if (toggle && li) {
+        toggle.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); li.classList.toggle('open'); });
+        document.addEventListener('click', function (e) { if (!li.contains(e.target)) li.classList.remove('open'); });
+      }
+
+      // Carrusel
+      const track = document.getElementById('carruselTrack');
+      const dots  = document.querySelectorAll('.carrusel-dot');
+      const total = document.querySelectorAll('.carrusel-slide').length;
+      let current = 0;
+
+      function goTo(n) {
+        current = (n + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      document.getElementById('carruselPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('carruselNext').addEventListener('click', () => goTo(current + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+      setInterval(() => goTo(current + 1), 4000);
+    });
+  </script>
+</body>
+</html>

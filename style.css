@@ -1,0 +1,1002 @@
+/* ─────────────────────────────────────────────
+   ALMACEN DE FRAGANCIAS – style.css
+───────────────────────────────────────────── */
+
+:root {
+  --cream:    #f7f4ef;
+  --cream-2:  #ede9e1;
+  --dark:     #1a1714;
+  --dark-2:   #2e2b27;
+  --mid:      #7a7065;
+  --light:    #b8ad9e;
+  --accent:   #8b6f47;
+  --accent-2: #c4a882;
+  --white:    #ffffff;
+  --wa-green: #2e2b27;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: var(--cream);
+  color: var(--dark);
+}
+
+/* ── HEADER ──────────────────────────────────── */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--cream-2);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  height: 80px;
+}
+
+.logo a { text-decoration: none; }
+.logo h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: 0.2em;
+  color: var(--dark);
+  margin: 0;
+}
+.logo p {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.logo-redondo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  margin-left: 12px;
+  mix-blend-mode: multiply;
+  vertical-align: middle;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--dark-2); }
+
+/* Dropdown marcas */
+.nav-marcas { position: relative; }
+.marcas-toggle { cursor: pointer; }
+
+.marcas-dropdown {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: calc(100% + 20px);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--white);
+  border: 1px solid rgba(93, 87, 87, 0.07);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  list-style: none;
+  padding: 12px 0;
+  width: 160px;
+  z-index: 1100;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.nav-marcas.open .marcas-dropdown {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+}
+.marcas-dropdown li a {
+  display: block;
+  padding: 9px 22px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--dark-2) !important;
+  text-transform: uppercase;
+  transition: background 0.15s ease;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.marcas-dropdown li a:hover { background-color: var(--cream); }
+
+/* Carrito icono */
+.bag {
+  position: relative;
+  text-decoration: none;
+  color: var(--dark);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+.cart-badge {
+  position: absolute;
+  top: -7px;
+  right: -9px;
+  background-color: var(--mid);
+  color: var(--white);
+  font-size: 9px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Menú hamburguesa */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.menu-toggle span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background-color: var(--dark-2);
+  transition: all 0.3s ease;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #2e2b27;;
+  display: none;
+  z-index: 900;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.overlay.active { display: block; opacity: 1; }
+
+/* ── HERO INDEX ───────────────────────────────── */
+.hero-index {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50px;
+  padding-top: 80px;
+  background-color: var(--cream);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 560px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--dark);
+  margin-bottom: 24px;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--mid);
+  font-weight: 300;
+  margin-bottom: 40px;
+  max-width: 420px;
+}
+
+.btn-hero {
+  display: inline-block;
+  padding: 14px 36px;
+  background-color: var(--mid);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+.btn-hero:hover { background-color: var(--dark-2); }
+
+/* Decoración hero */
+/* Decoración hero */
+.hero-decoration {
+  position: absolute;
+  right: -180px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+.deco-circle { display: none; }
+.hero-flor {
+  width: 650px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+/* ── SECCIÓN MARCAS ───────────────────────────── */
+.marcas-section {
+  padding: 100px 50px;
+  background-color: var(--white);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.section-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dark-2);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 300;
+  color: var(--dark-2);
+  letter-spacing: 0.1em;
+}
+.section-line {
+  width: 40px;
+  height: 1px;
+  background-color: var(--dark-2);
+  margin: 20px auto 0;
+}
+
+.marcas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.marca-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 30px;
+  background-color: var(--cream);
+  border: 1px solid var(--cream);
+  text-decoration: none;
+  color: var(--dark);
+  transition: all 0.3s ease;
+}
+.marca-card:hover {
+  border-color: var(--cream);
+  background-color: var(--white);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+}
+.marca-icon {
+  font-size: 24px;
+  color: var(--mid);
+  margin-bottom: 16px;
+  letter-spacing: 0;
+}
+.marca-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.marca-card p {
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+.marca-link {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--dark-2);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--cream-2);
+  padding-bottom: 2px;
+}
+
+/* ── CTA SECTION ──────────────────────────────── */
+.cta-section {
+  padding: 80px 50px;
+  background-color: var(--mid);
+  text-align: center;
+}
+.cta-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+.cta-content p {
+  font-size: 14px;
+  color: var(--cream-2);
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+}
+.btn-cta {
+  display: inline-block;
+  padding: 14px 40px;
+  background-color: var(--mid);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+.btn-cta:hover { background-color: var(--dark-2); }
+
+/* ── CONTACTO ─────────────────────────────────── */
+.contacto-section {
+  padding: 80px 50px;
+  background-color: var(--cream-2);
+}
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}
+.contacto-info h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--dark);
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+}
+.contacto-info p {
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+.btn-whatsapp-contacto {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 28px;
+  background-color: var(--wa-green);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  transition: opacity 0.3s ease;
+}
+.btn-whatsapp-contacto:hover { opacity: 0.85; }
+.contacto-logo {
+  text-align: right;
+  padding-right: 40px;
+}
+
+
+/* ── FOOTER ───────────────────────────────────── */
+footer {
+  background-color: var(--cream-2);
+  padding: 24px 50px;
+  text-align: center;
+}
+footer p {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--mid);
+}
+
+/* ── CATÁLOGO PAGE ────────────────────────────── */
+.catalogo-page {
+  padding-top: 120px;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.catalogo-header {
+  text-align: center;
+  padding: 40px 50px 30px;
+}
+.catalogo-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--dark-2);
+  margin-bottom: 8px;
+}
+.catalogo-header p {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--mid);
+}
+
+/* Filtros */
+.filtros-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px 50px 40px;
+}
+.filtro-btn {
+  padding: 9px 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 1px solid var(--cream-2);
+  color: var(--mid);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.filtro-btn:hover {
+  border-color: var(--cream);
+  color: var(--mid);
+}
+.filtro-btn.active {
+  background-color: var(--mid);
+  border-color: var(--mid);
+  color: var(--white);
+}
+
+/* Grid productos */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+  padding: 0 50px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.producto-card {
+  background-color: var(--white);
+  border: 1px solid var(--cream-2);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+.producto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+  border-color: var(--cream);
+}
+
+.producto-img-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: var(--cream);
+}
+.producto-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.producto-card:hover .producto-img-wrap img { transform: scale(1.05); }
+
+.producto-marca-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(255,255,255,0.92);
+  color: var(--accent);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+
+.producto-info {
+  padding: 20px 20px 22px;
+}
+.producto-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--dark);
+  margin-bottom: 5px;
+  letter-spacing: 0.03em;
+}
+.producto-desc {
+  font-size: 11px;
+  color: var(--light);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.producto-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: var(--dark);
+  font-weight: 400;
+  margin-bottom: 14px;
+}
+
+.btn-agregar {
+  width: 100%;
+  padding: 11px 0;
+  background-color: transparent;
+  border: 1px solid var(--dark-2);
+  color: var(--dark-2);
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-agregar:hover,
+.btn-agregar.agregado {
+  background-color: var(--dark-2);
+  color: var(--white);
+}
+
+.no-productos {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 0;
+  font-size: 13px;
+  color: var(--light);
+  letter-spacing: 0.1em;
+}
+
+/* ── BRAND PAGES ──────────────────────────────── */
+.brand-page {
+  padding-top: 120px;
+  min-height: 100vh;
+  background-color: var(--cream);
+}
+
+.brand-hero {
+  padding: 60px 50px 50px;
+  border-bottom: 1px solid var(--cream-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.brand-icon {
+  font-size: 28px;
+  color: var(--accent-2);
+  margin-bottom: 20px;
+}
+.brand-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.brand-hero .subtitle {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--mid);
+  font-style: italic;
+  margin-bottom: 30px;
+}
+.brand-divider {
+  width: 40px;
+  height: 1px;
+  background-color: var(--accent-2);
+  margin: 0 auto 30px;
+}
+.brand-hero p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--mid);
+  font-weight: 300;
+  max-width: 640px;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
+}
+
+.brand-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn-ver-catalogo {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: var(--dark-2);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+}
+.btn-ver-catalogo:hover { background-color: var(--cream); }
+
+.btn-volver {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: transparent;
+  border: 1px solid var(--light);
+  color: var(--mid);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.btn-volver:hover { border-color: var(--dark-2); color: var(--dark-2); }
+
+/* Productos de la marca en brand page */
+.brand-productos {
+  padding: 60px 50px 80px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.brand-productos h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dark-2);
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+/* ── CARRITO LATERAL ──────────────────────────── */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(26,23,20,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 2000;
+}
+.cart-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.cart-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 100%;
+  background-color: var(--white);
+  padding: 36px 32px 32px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--light);
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+.close-btn:hover { color: var(--dark-2); }
+
+.cart-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--dark);
+  margin: 16px 0 24px;
+}
+.empty-cart {
+  text-align: center;
+  margin-top: 80px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--light);
+  text-transform: uppercase;
+}
+
+.cart-content { flex: 1; overflow-y: auto; }
+
+.cart-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--cream-2);
+  padding: 16px 0;
+  position: relative;
+}
+.cart-item-image {
+  width: 70px;
+  height: 90px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background-color: var(--cream);
+}
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cart-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--dark);
+  padding-right: 20px;
+}
+.cart-item-brand {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.cart-item-price {
+  font-size: 13px;
+  color: var(--mid);
+  margin-top: 4px;
+}
+.remove-item {
+  position: absolute;
+  top: 16px;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--light);
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+.remove-item:hover { color: var(--dark); }
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.btn-qty {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--cream-2);
+  background: var(--white);
+  color: var(--dark);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.btn-qty:hover { background-color: var(--dark); color: var(--white); border-color: var(--dark); }
+.cart-qty-number { font-size: 13px; min-width: 20px; text-align: center; color: var(--dark); }
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--dark);
+  padding: 20px 0 16px;
+  border-top: 1px solid var(--cream-2);
+  margin-top: 8px;
+}
+
+.cart-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cream-2);
+  margin-top: 8px;
+}
+
+.btn-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 15px 0;
+  background-color: var(--wa-green);
+  color: var(--white);
+  border: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.btn-whatsapp:hover { opacity: 0.88; }
+
+.btn-clear-cart {
+  width: 100%;
+  padding: 11px 0;
+  background: transparent;
+  border: 1px solid var(--cream-2);
+  color: var(--light);
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.btn-clear-cart:hover { border-color: var(--mid); color: var(--dark); }
+
+/* ── MEDIA QUERIES ────────────────────────────── */
+@media (max-width: 900px) {
+  .marcas-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .navbar { padding: 0 20px; height: 65px; position: relative; }
+  .logo { position: absolute; left: 50%; transform: translateX(-50%); }
+  .logo h1 { font-size: 13px; letter-spacing: 0.12em; }
+  .logo p { font-size: 9px; }
+
+  .menu-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background-color: var(--cream);
+    padding: 20px 0;
+    border-top: 1px solid var(--cream-2);
+    z-index: 1001;
+    gap: 0;
+  }
+  .nav-links.active { display: flex; }
+  .nav-links li { width: 100%; text-align: center; }
+  .nav-links li a { display: block; padding: 14px 0; font-size: 12px; }
+
+  .marcas-dropdown {
+    position: static !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-top: 1px solid var(--cream-2) !important;
+    padding: 6px 0 !important;
+    width: 100% !important;
+    background-color: var(--white) !important;
+  }
+
+  .bag { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
+
+  .hero-index { padding: 80px 24px 60px; }
+  .hero-decoration { display: none; }
+
+  .marcas-section { padding: 60px 24px; }
+  .marcas-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .marca-card { padding: 24px 16px; }
+  .marca-card p { display: none; }
+
+  .cta-section { padding: 60px 24px; }
+  .cta-content h2 { font-size: 26px; }
+
+  .contacto-section { padding: 60px 24px; }
+  .contacto-grid { grid-template-columns: 1fr; gap: 30px; }
+  .logo-text { text-align: left; }
+
+  .catalogo-page { padding-top: 100px; }
+  .catalogo-header { padding: 30px 24px 20px; }
+  .filtros-wrap { padding: 16px 24px 28px; gap: 8px; }
+  .filtro-btn { padding: 8px 14px; font-size: 10px; }
+  .productos-grid { padding: 0 24px; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+
+  .brand-page { padding-top: 100px; }
+  .brand-hero { padding: 40px 24px 36px; }
+  .brand-hero h1 { font-size: 32px; }
+  .brand-productos { padding: 40px 24px 60px; }
+
+  .cart-panel { width: 100%; padding: 28px 20px 24px; }
+  footer { padding: 20px 24px; }
+}
+
+@media (max-width: 400px) {
+  .marcas-grid { grid-template-columns: 1fr; }
+}
+
+.btn-ver-catalogo-empty {
+  display: block;
+  text-align: center;
+  margin: 20px auto 0;
+  padding: 9px 18px;
+  background-color: var(--mid);
+  color: var(--white);
+  text-decoration: none;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
+  width: fit-content;
+}
+.btn-ver-catalogo-empty:hover { background-color: var(--dark-2); }
+
+/* flor decoration doble */
+.hero-decoration-left {
+  position: absolute;
+  left: -180px;
+  top: 50%;
+  transform: translateY(-50%) scaleX(-1);
+  z-index: 1;
+  pointer-events: none;
+}
+.hero-flor-left {
+  width: 650px;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
