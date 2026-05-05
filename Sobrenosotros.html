@@ -227,20 +227,16 @@
     <div class="sobre-carrusel">
       <div class="carrusel-track" id="carruselTrack">
         <div class="carrusel-slide">
-          <img src="img/carrusel1.jpg" alt="Almacen de Fragancias">
+          <img src="img/negocio1.png" alt="Almacen de Fragancias">
         </div>
         <div class="carrusel-slide">
-          <img src="img/carrusel2.jpeg" alt="Nuestro local">
-        </div>
-        <div class="carrusel-slide">
-          <img src="img/carrusel3.jpg" alt="Nuestros productos">
+          <img src="img/negocio2.jpg" alt="Nuestro local">
         </div>
       </div>
       <button class="carrusel-btn carrusel-prev" id="carruselPrev">‹</button>
       <button class="carrusel-btn carrusel-next" id="carruselNext">›</button>
       <div class="carrusel-dots">
         <button class="carrusel-dot active"></button>
-        <button class="carrusel-dot"></button>
         <button class="carrusel-dot"></button>
       </div>
     </div>
@@ -333,7 +329,7 @@
       document.getElementById('carruselPrev').addEventListener('click', () => goTo(current - 1));
       document.getElementById('carruselNext').addEventListener('click', () => goTo(current + 1));
       dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
-      setInterval(() => goTo(current + 1), 4000);
+      setInterval(() => goTo(current + 1), 10000);
     });
   </script>
 </body>
