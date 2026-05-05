@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────
-// ALMACEN DE FRAGANCIAS – script.js
+// ALMACÉN DE FRAGANCIAS – script.js
 // ─────────────────────────────────────────────
 
 const WA_NUMBER = '5492284582125';
@@ -145,7 +145,7 @@ if (btnClearCart) {
 if (btnWhatsapp) {
   btnWhatsapp.addEventListener('click', () => {
     if (cartItems.length === 0) return;
-    let msg = '¡Hola! Me gustaría hacer el siguiente pedido desde Almacen de Fragancias:\n\n';
+    let msg = '¡Hola! Me gustaría hacer el siguiente pedido desde Almacén de Fragancias:\n\n';
     let total = 0;
     cartItems.forEach(item => {
       const subtotal = item.price * item.quantity;
