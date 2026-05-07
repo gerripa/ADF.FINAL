@@ -4,51 +4,66 @@
 
 const WA_NUMBER = '5492284582125';
 
-// ── PRODUCTOS ──────────────────────────────────
-// Para agregar un producto real: copiá uno de estos objetos,
-// cambiá los datos y agregá la imagen en la carpeta img/.
-// Cada producto necesita: name, brand, price, image, desc
-const productos = [
-  // KALA
-  { name: "Perfume Kala Nº1",       brand: "Kala",               price: 3200,  image: "img/kala1.webp", desc: "Fragancia floral y amaderada, 50ml" },
-  { name: "Perfume Kala Nº3",       brand: "Kala",               price: 3800,  image: "img/kala2.webp", desc: "Notas orientales con fondo de ámbar, 50ml" },
-  { name: "Kala Roll-On",           brand: "Kala",               price: 1500,  image: "img/kala3.webp", desc: "Aceite perfumado en roll-on, 10ml" },
+// ── BASE DE DATOS – GOOGLE SHEETS ─────────────
+const SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTH5tnRo9-KRhyMRCRNA7ZGQ-LX8ErEExVbHw3T7vhhhmVPxlG-JX7bzFD922QAVFYxPPoyP9ccVuyK/pub?gid=1676840940&single=true&output=csv';
 
-  // PAQUE COCO
-  { name: "Paque Noche",            brand: "Paque Coco",         price: 2900,  image: "img/paque1.webp", desc: "Intenso y sensual, ideal para la noche" },
-  { name: "Paque Día",              brand: "Paque Coco",         price: 2600,  image: "img/paque2.webp", desc: "Fresco y frutal para el día a día" },
-  { name: "Paque Mini Set",         brand: "Paque Coco",         price: 1800,  image: "img/paque3.webp", desc: "Set de 2 mini perfumes 15ml c/u" },
+let productos = [];
+let _pendingFiltro = null;
 
-  // NANDA
-  { name: "Difusor Nanda Bambú",    brand: "Nanda",              price: 4200,  image: "img/nanda1.webp", desc: "Difusor de ambiente 200ml, bambú y sándalo" },
-  { name: "Difusor Nanda Jazmín",   brand: "Nanda",              price: 4200,  image: "img/nanda2.webp", desc: "Difusor de ambiente 200ml, jazmín y musgo" },
-  { name: "Perfume Nanda 001",      brand: "Nanda",              price: 5500,  image: "img/nanda3.webp", desc: "Perfume de autor, cruelty free, 60ml" },
+function parsearCSV(texto) {
+  const lineas = texto.trim().split('\n');
+  const headers = lineas[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lineas.slice(1).map(linea => {
+    const cols = [];
+    let actual = '';
+    let dentroComillas = false;
+    for (let i = 0; i < linea.length; i++) {
+      const c = linea[i];
+      if (c === '"') { dentroComillas = !dentroComillas; }
+      else if (c === ',' && !dentroComillas) { cols.push(actual.trim()); actual = ''; }
+      else { actual += c; }
+    }
+    cols.push(actual.trim());
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = (cols[i] || '').replace(/^"|"$/g, '').trim(); });
+    return obj;
+  });
+}
 
-  // NEW CANDLES
-  { name: "Vela Canela & Vainilla", brand: "New Candles",        price: 1800,  image: "img/candles1.jpg", desc: "Vela artesanal de cera de soja, 200g" },
-  { name: "Vela Lavanda",           brand: "New Candles",        price: 1800,  image: "img/candles2.jpg", desc: "Vela artesanal de cera de soja, 200g" },
-  { name: "Set 3 Velas Mini",       brand: "New Candles",        price: 2400,  image: "img/candles3.jpg", desc: "Set de 3 velas pequeñas, aromas a elección" },
+async function cargarProductos() {
+  try {
+    const res = await fetch(SHEETS_URL);
+    const texto = await res.text();
+    const filas = parsearCSV(texto);
 
-  // VELAS DE SOJA
-  { name: "Vela Soja Clásica",      brand: "Velas de Soja",      price: 1600,  image: "img/velas1.jpeg", desc: "Vela de elaboración propia, cera 100% soja" },
-  { name: "Vela Soja Grande",       brand: "Velas de Soja",      price: 2200,  image: "img/velas2.jpeg", desc: "Vela grande, 350g, larga duración" },
-  { name: "Vela Soja Regalo",       brand: "Velas de Soja",      price: 2800,  image: "img/velas3.jpeg", desc: "Presentación caja regalo, ideal para regalar" },
+    productos = filas
+      .filter(f => f.nombre && f.nombre.trim() !== '')
+      .map(f => ({
+        name:  f.nombre,
+        brand: f.marca,
+        price: parseInt(f.precio.toString().replace(/\./g, '').replace(',', '')) || 0,
+        image: f.imagen,
+        desc:  f.descripcion,
+        stock: parseInt(f.stock) || 0,
+      }));
 
-  // TOUCH AROMAS
-  { name: "Aromatizador Touch",     brand: "Touch Aromas",       price: 1900,  image: "img/touch1.webp", desc: "Aromatizador de ambiente, 250ml" },
-  { name: "Body Splash Touch",      brand: "Touch Aromas",       price: 2100,  image: "img/touch2.webp", desc: "Splash corporal refrescante, 200ml" },
-  { name: "Crema Perfumada Touch",  brand: "Touch Aromas",       price: 2300,  image: "img/touch3.webp", desc: "Crema corporal con fragancia duradera" },
+    const contenedor = document.getElementById('catalogo');
+    if (contenedor) {
+      // Prioridad: filtro pendiente > ?marca= en URL > data-marca en el div
+      const params = new URLSearchParams(window.location.search);
+      const marcaParam = params.get('marca');
+      const dataMarca = contenedor.dataset.marca || null;
+      renderCatalogo(_pendingFiltro || marcaParam || dataMarca || null);
+    }
 
-  // COMPAÑÍA DE BRUJAS
-  { name: "Camino Toronto",         brand: "Compañía de Brujas", price: 38000, image: "img/brujas1.webp", desc: "Camino de mesa artesanal con flecos" },
-  { name: "Camino York",            brand: "Compañía de Brujas", price: 58000, image: "img/brujas2.webp", desc: "Camino de mesa boho con terminación tejida" },
-  { name: "Camino Lisboa",          brand: "Compañía de Brujas", price: 58000, image: "img/brujas3.webp", desc: "Camino de mesa en lino natural con flecos" },
-
-  // MARÍA FERNÁNDEZ BA
-  { name: "Perfum NYC New York",    brand: "María Fernández BA", price: 3500,  image: "img/maria1.jpeg", desc: "Perfume de ambiente inspirado en Nueva York" },
-  { name: "Perfum BS AS",           brand: "María Fernández BA", price: 3500,  image: "img/maria2.jpeg", desc: "Perfume de ambiente con esencia porteña" },
-  { name: "Perfum París",           brand: "María Fernández BA", price: 3500,  image: "img/maria3.jpeg", desc: "Home spray inspirado en París, 250ml" },
-];
+  } catch (err) {
+    console.error('Error cargando productos desde Sheets:', err);
+    const contenedor = document.getElementById('catalogo');
+    if (contenedor) {
+      contenedor.innerHTML = '<p class="no-productos">No se pudieron cargar los productos. Intentá de nuevo más tarde.</p>';
+    }
+  }
+}
 
 // ── CARRITO ────────────────────────────────────
 let cartItems = JSON.parse(localStorage.getItem('cart_af')) || [];
@@ -114,7 +129,6 @@ function updateCart() {
   localStorage.setItem('cart_af', JSON.stringify(cartItems));
 }
 
-// Eventos dentro del carrito
 if (cartContent) {
   cartContent.addEventListener('click', (e) => {
     const index = parseInt(e.target.dataset.index);
@@ -161,8 +175,14 @@ if (btnWhatsapp) {
 
 // ── CATÁLOGO ───────────────────────────────────
 function renderCatalogo(filtroMarca = null) {
+  _pendingFiltro = filtroMarca;
   const contenedor = document.getElementById('catalogo');
   if (!contenedor) return;
+
+  if (productos.length === 0) {
+    contenedor.innerHTML = '<p class="no-productos" style="opacity:0.5">Cargando productos...</p>';
+    return;
+  }
 
   const lista = filtroMarca
     ? productos.filter(p => p.brand === filtroMarca)
@@ -173,24 +193,29 @@ function renderCatalogo(filtroMarca = null) {
     return;
   }
 
-  contenedor.innerHTML = lista.map((prod) => `
-    <div class="producto-card" data-index="${productos.indexOf(prod)}">
-      <div class="producto-img-wrap">
-        <img src="${prod.image}" alt="${prod.name}" onerror="this.src='img/SinFoto.webp'">
-        <span class="producto-marca-tag">${prod.brand}</span>
+  contenedor.innerHTML = lista.map((prod) => {
+    const idx = productos.indexOf(prod);
+    const sinStock = prod.stock === 0;
+    return `
+      <div class="producto-card${sinStock ? ' sin-stock' : ''}" data-index="${idx}">
+        <div class="producto-img-wrap">
+          <img src="${prod.image}" alt="${prod.name}" onerror="this.src='img/SinFoto.webp'">
+          <span class="producto-marca-tag">${prod.brand}</span>
+          ${sinStock ? '<span class="tag-sin-stock">Sin stock</span>' : ''}
+        </div>
+        <div class="producto-info">
+          <h4 class="producto-name">${prod.name}</h4>
+          <p class="producto-desc">${prod.desc}</p>
+          <p class="producto-price">$${prod.price.toLocaleString('es-AR')}</p>
+          <button class="btn-agregar" data-idx="${idx}" ${sinStock ? 'disabled' : ''}>
+            ${sinStock ? 'Sin stock' : '+ Agregar a mi selección'}
+          </button>
+        </div>
       </div>
-      <div class="producto-info">
-        <h4 class="producto-name">${prod.name}</h4>
-        <p class="producto-desc">${prod.desc}</p>
-        <p class="producto-price">$${prod.price.toLocaleString('es-AR')}</p>
-        <button class="btn-agregar" data-idx="${productos.indexOf(prod)}">
-          + Agregar a mi selección
-        </button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
-  contenedor.querySelectorAll('.btn-agregar').forEach(btn => {
+  contenedor.querySelectorAll('.btn-agregar:not([disabled])').forEach(btn => {
     btn.addEventListener('click', () => {
       const idx = parseInt(btn.dataset.idx);
       const prod = productos[idx];
@@ -201,7 +226,6 @@ function renderCatalogo(filtroMarca = null) {
         cartItems.push({ name: prod.name, brand: prod.brand, price: prod.price, quantity: 1, image: prod.image });
       }
       updateCart();
-
       btn.textContent = '✓ Agregado';
       btn.classList.add('agregado');
       setTimeout(() => {
@@ -234,11 +258,7 @@ if (overlay) {
 // ── INIT ───────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   updateCart();
-  if (document.getElementById('catalogo')) {
-    const params = new URLSearchParams(window.location.search);
-    const marcaParam = params.get('marca');
-    renderCatalogo(marcaParam || null);
-  }
+  cargarProductos();
 });
 
 // Scroll suave

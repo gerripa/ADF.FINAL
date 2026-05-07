@@ -65,7 +65,7 @@
 
     <div class="brand-productos">
       <h3>Productos de Nanda</h3>
-      <div id="catalogo" class="productos-grid"></div>
+      <div id="catalogo" class="productos-grid" data-marca="Nanda"></div>
     </div>
   </div>
 
@@ -95,7 +95,6 @@
         toggle.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); li.classList.toggle('open'); });
         document.addEventListener('click', function (e) { if (!li.contains(e.target)) li.classList.remove('open'); });
       }
-      renderCatalogo('Nanda');
     });
   </script>
 </body>

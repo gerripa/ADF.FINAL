@@ -65,7 +65,7 @@
 
     <div class="brand-productos">
       <h3>Productos de Kala</h3>
-      <div id="catalogo" class="productos-grid"></div>
+      <div id="catalogo" class="productos-grid" data-marca="Kala"></div>
     </div>
   </div>
 
@@ -97,7 +97,6 @@
         document.addEventListener('click', function (e) { if (!li.contains(e.target)) li.classList.remove('open'); });
       }
       // Mostrar solo productos de esta marca
-      renderCatalogo('Kala');
     });
   </script>
 </body>

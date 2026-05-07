@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Velas de Soja – Almacén de Fragancias</title>
+  <title>Velas de Soja – Almacen de Fragancias</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
@@ -16,7 +16,7 @@
       <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
       <div class="logo">
         <a href="index.html">
-          <h1>ALMACÉN DE FRAGANCIAS</h1>
+          <h1>ALMACEN DE FRAGANCIAS</h1>
           <p>Perfumes, aromas, esencias y más</p>
         </a>
       </div>
@@ -65,9 +65,56 @@
 
     <div class="brand-productos">
       <h3>Velas de Soja</h3>
-      <div id="catalogo" class="productos-grid"></div>
+      <div id="catalogo" class="productos-grid" data-marca="Velas de Soja"></div>
     </div>
+
+    <!-- PEDIDO PERSONALIZADO -->
+    <div class="velas-personalizado">
+      <p class="velas-personalizado-label">Hacé tu pedido personalizado de velas</p>
+      <a
+        href="https://wa.me/5492284582125?text=Hola%2C%20quiero%20una%20vela%20personalizada!"
+        target="_blank"
+        class="btn-whatsapp-velas"
+      >
+        <i class="fa-brands fa-whatsapp"></i> Hablanos por WhatsApp!
+      </a>
+    </div>
+
   </div>
+
+  <style>
+    .velas-personalizado {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 50px 24px 70px;
+      text-align: center;
+    }
+    .velas-personalizado-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--dark);
+    }
+    .btn-whatsapp-velas {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 22px;
+      background-color: #7a7065;;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Raleway', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: opacity 0.3s ease;
+    }
+    .btn-whatsapp-velas:hover { opacity: 0.85; }
+    .btn-whatsapp-velas i { font-size: 17px; }
+  </style>
 
   <!-- CARRITO LATERAL -->
   <div id="cartOverlay" class="cart-overlay">
@@ -95,7 +142,6 @@
         toggle.addEventListener('click', function (e) { e.preventDefault(); e.stopImmediatePropagation(); li.classList.toggle('open'); });
         document.addEventListener('click', function (e) { if (!li.contains(e.target)) li.classList.remove('open'); });
       }
-      renderCatalogo('Velas de Soja');
     });
   </script>
 </body>

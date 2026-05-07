@@ -1000,3 +1000,24 @@ footer p {
   opacity: 0.35;
   mix-blend-mode: multiply;
 }
+
+.producto-card.sin-stock { opacity: 0.55; }
+
+.tag-sin-stock {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: var(--mid);
+  color: var(--white);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+}
+
+.btn-agregar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--light);
+  color: var(--light);
+}
