@@ -1021,3 +1021,21 @@ footer p {
   border-color: var(--light);
   color: var(--light);
 }
+
+.brand-logo-wrap {
+  margin: 1px auto 1px;
+}
+.brand-logo-img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+}
+
+.contacto-logo-img {
+  width: 200px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+}
